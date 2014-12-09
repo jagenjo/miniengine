@@ -1,8 +1,7 @@
-# TJE Framework #
+# Miniengine #
 
-TJE Framework is a C++ layer on top of SDL and OpenGL to help create games or visual applications.
-It only provides the basic GPU abstraction (Meshes, Textures, Shaders, Application).
-It has been used for many years in the Videogame development courses I give at the Universitat Pompeu Fabra.
+Miniengine is a C++ layer on top of SDL and OpenGL to help create games or visual applications.
+It only provides the basic GPU abstraction (Meshes, Textures, Shaders, Application) and a basic SceneGraph.
 
 
 ## Installation ##
