@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de código fuente">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="miniengine">
+      <UniqueIdentifier>{5e0797d2-7ca2-4484-a7d0-6a9b77d086e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniengine\coldet">
+      <UniqueIdentifier>{66d35365-1e41-410e-be6a-d9cb9797041e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniengine\other">
+      <UniqueIdentifier>{28599aa7-8b82-47f9-a72d-799615fed4e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniengine\world">
+      <UniqueIdentifier>{0fb5722c-fed8-427f-9231-f8d4c8a27623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniengine\gfx">
+      <UniqueIdentifier>{2bc5ea1a-eace-458d-b428-c64d3c378d56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="miniengine\utils">
+      <UniqueIdentifier>{f1972046-1982-4120-a921-3d735e062adf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\extra\coldet\sysdep.cpp">
+      <Filter>miniengine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\bitmapfont.cpp">
+      <Filter>miniengine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\application.cpp">
+      <Filter>miniengine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\coldet.cpp">
+      <Filter>miniengine\coldet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\coldet_bld.cpp">
+      <Filter>miniengine\coldet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\math3d.cpp">
+      <Filter>miniengine\coldet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\mytritri.cpp">
+      <Filter>miniengine\coldet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\tritri.c">
+      <Filter>miniengine\coldet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\box_bld.cpp">
+      <Filter>miniengine\coldet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\box.cpp">
+      <Filter>miniengine\coldet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxml.cpp">
+      <Filter>miniengine\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinystr.cpp">
+      <Filter>miniengine\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\clipper.cpp">
+      <Filter>miniengine\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\world\worlditems.cpp">
+      <Filter>miniengine\world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\world\world.cpp">
+      <Filter>miniengine\world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\particles.cpp">
+      <Filter>miniengine\world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\world\entity.cpp">
+      <Filter>miniengine\world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\examples\world\app.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\camera.cpp">
+      <Filter>miniengine\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\mesh.cpp">
+      <Filter>miniengine\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\texture.cpp">
+      <Filter>miniengine\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\rendertotexture.cpp">
+      <Filter>miniengine\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\shader.cpp">
+      <Filter>miniengine\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxmlparser.cpp">
+      <Filter>miniengine\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxmlerror.cpp">
+      <Filter>miniengine\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\text.cpp">
+      <Filter>miniengine\other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\utils.cpp">
+      <Filter>miniengine\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\math.cpp">
+      <Filter>miniengine\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\sound.cpp">
+      <Filter>miniengine\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\ddsloader.cpp">
+      <Filter>miniengine\gfx</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\extra\coldet\sysdep.h">
+      <Filter>miniengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\bitmapfont.h">
+      <Filter>miniengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\includes.h">
+      <Filter>miniengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\miniengine.h">
+      <Filter>miniengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\application.h">
+      <Filter>miniengine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\coldet.h">
+      <Filter>miniengine\coldet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\coldetimpl.h">
+      <Filter>miniengine\coldet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\math3d.h">
+      <Filter>miniengine\coldet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\mytritri.h">
+      <Filter>miniengine\coldet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\box.h">
+      <Filter>miniengine\coldet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\tinyxml\tinyxml.h">
+      <Filter>miniengine\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\tinyxml\tinystr.h">
+      <Filter>miniengine\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\clipper.h">
+      <Filter>miniengine\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\world\worlditems.h">
+      <Filter>miniengine\world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\world\world.h">
+      <Filter>miniengine\world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\particles.h">
+      <Filter>miniengine\world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\world\entity.h">
+      <Filter>miniengine\world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\camera.h">
+      <Filter>miniengine\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\mesh.h">
+      <Filter>miniengine\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\texture.h">
+      <Filter>miniengine\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\rendertotexture.h">
+      <Filter>miniengine\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\shader.h">
+      <Filter>miniengine\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\text.h">
+      <Filter>miniengine\other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\world\controller.h">
+      <Filter>miniengine\world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\utils.h">
+      <Filter>miniengine\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\math.h">
+      <Filter>miniengine\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\sound.h">
+      <Filter>miniengine\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\ddsloader.h">
+      <Filter>miniengine\gfx</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
