@@ -19,14 +19,12 @@
 *.[Cc]ache
 *.ilk
 *.log
-*.lib
 *.sbr
 *.sdf
 *.opensdf
 *.unsuccessfulbuild
 ipch/
 [Oo]bj/
-[Bb]in
 [Dd]ebug*/
 [Rr]elease*/
 Ankh.NoLoad
