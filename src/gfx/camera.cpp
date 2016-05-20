@@ -22,6 +22,7 @@ void Camera::set()
 	updateViewMatrix();
 	updateProjectionMatrix();
 
+	//for fixed pipeline stuff
 	glMatrixMode( GL_MODELVIEW );
 	glLoadMatrixf( view_matrix.m );
 
@@ -30,7 +31,7 @@ void Camera::set()
 
 	glMatrixMode( GL_MODELVIEW );
 
-	clipper.ExtractFrustum();
+	extractFrustum();
 }
 
 Vector3 Camera::getLocalVector(const Vector3& v)
@@ -112,24 +113,14 @@ void Camera::lookAt(const Vector3& eye, const Vector3& center, const Vector3& up
 
 void Camera::updateViewMatrix()
 {
-	//if (type != PERSPECTIVE) return;
-	assert( up.length() > 0.0 );
+	if (type == PERSPECTIVE)
+		view_matrix.lookAt(eye, center, up);
+	else
+		view_matrix.setIdentity();
 
-	//We activate the matrix we want to work: modelview
-	glMatrixMode(GL_MODELVIEW);
+	view_projection_matrix = view_matrix * projection_matrix;
 
-	//We set it as identity
-	glLoadIdentity();
-	
-	//We find the look at matrix
-	gluLookAt( eye.x, eye.y, eye.z, center.x, center.y, center.z, up.x, up.y, up.z);
-
-	//We get the matrix and store it in our app
-	glGetFloatv(GL_MODELVIEW_MATRIX, view_matrix.m );
-
-	assert( checkGLErrors() );
-
-	updateViewProjectionMatrix();
+	extractFrustum();
 }
 
 // ******************************************
@@ -137,25 +128,14 @@ void Camera::updateViewMatrix()
 //Create a projection matrix
 void Camera::updateProjectionMatrix()
 {
-	this->tan_fov = fabs( tan(fov * DEG2RAD) );
-
-	//We activate the matrix we want to work: projection
-	glMatrixMode(GL_PROJECTION);
-
-	//We set it as identity
-	glLoadIdentity();
-
-	if (type == PERSPECTIVE)
-		gluPerspective(fov, aspect, near_plane, far_plane);
+	if (type == ORTHOGRAPHIC)
+		projection_matrix.ortho(left, right, bottom, top, near_plane, far_plane);
 	else
-		glOrtho(left,right,bottom,top,near_plane,far_plane);
+		projection_matrix.perspective(fov, aspect, near_plane, far_plane);
 
-	//upload to hardware
-	glGetFloatv(GL_PROJECTION_MATRIX, projection_matrix.m );
+	view_projection_matrix = view_matrix * projection_matrix;
 
-	glMatrixMode(GL_MODELVIEW);
-
-	updateViewProjectionMatrix();
+	extractFrustum();
 }
 
 Vector3 Camera::project2D(Vector3 pos, float screen_width, float screen_height)
@@ -172,3 +152,189 @@ std::string Camera::toString()
 	return temp;
 }
 
+void Camera::extractFrustum()
+{
+	float* proj = projection_matrix.m;
+	float* modl = view_matrix.m;;
+	float  clip[16];
+	float   t;
+
+	/* Combine the two matrices (multiply projection by modelview) */
+	clip[0] = modl[0] * proj[0] + modl[1] * proj[4] + modl[2] * proj[8] + modl[3] * proj[12];
+	clip[1] = modl[0] * proj[1] + modl[1] * proj[5] + modl[2] * proj[9] + modl[3] * proj[13];
+	clip[2] = modl[0] * proj[2] + modl[1] * proj[6] + modl[2] * proj[10] + modl[3] * proj[14];
+	clip[3] = modl[0] * proj[3] + modl[1] * proj[7] + modl[2] * proj[11] + modl[3] * proj[15];
+
+	clip[4] = modl[4] * proj[0] + modl[5] * proj[4] + modl[6] * proj[8] + modl[7] * proj[12];
+	clip[5] = modl[4] * proj[1] + modl[5] * proj[5] + modl[6] * proj[9] + modl[7] * proj[13];
+	clip[6] = modl[4] * proj[2] + modl[5] * proj[6] + modl[6] * proj[10] + modl[7] * proj[14];
+	clip[7] = modl[4] * proj[3] + modl[5] * proj[7] + modl[6] * proj[11] + modl[7] * proj[15];
+
+	clip[8] = modl[8] * proj[0] + modl[9] * proj[4] + modl[10] * proj[8] + modl[11] * proj[12];
+	clip[9] = modl[8] * proj[1] + modl[9] * proj[5] + modl[10] * proj[9] + modl[11] * proj[13];
+	clip[10] = modl[8] * proj[2] + modl[9] * proj[6] + modl[10] * proj[10] + modl[11] * proj[14];
+	clip[11] = modl[8] * proj[3] + modl[9] * proj[7] + modl[10] * proj[11] + modl[11] * proj[15];
+
+	clip[12] = modl[12] * proj[0] + modl[13] * proj[4] + modl[14] * proj[8] + modl[15] * proj[12];
+	clip[13] = modl[12] * proj[1] + modl[13] * proj[5] + modl[14] * proj[9] + modl[15] * proj[13];
+	clip[14] = modl[12] * proj[2] + modl[13] * proj[6] + modl[14] * proj[10] + modl[15] * proj[14];
+	clip[15] = modl[12] * proj[3] + modl[13] * proj[7] + modl[14] * proj[11] + modl[15] * proj[15];
+
+	/* Extract the numbers for the RIGHT plane */
+	frustum[0][0] = clip[3] - clip[0];
+	frustum[0][1] = clip[7] - clip[4];
+	frustum[0][2] = clip[11] - clip[8];
+	frustum[0][3] = clip[15] - clip[12];
+
+	/* Normalize the result */
+	t = sqrt(frustum[0][0] * frustum[0][0] + frustum[0][1] * frustum[0][1] + frustum[0][2] * frustum[0][2]);
+	frustum[0][0] /= t;
+	frustum[0][1] /= t;
+	frustum[0][2] /= t;
+	frustum[0][3] /= t;
+
+	/* Extract the numbers for the LEFT plane */
+	frustum[1][0] = clip[3] + clip[0];
+	frustum[1][1] = clip[7] + clip[4];
+	frustum[1][2] = clip[11] + clip[8];
+	frustum[1][3] = clip[15] + clip[12];
+
+	/* Normalize the result */
+	t = sqrt(frustum[1][0] * frustum[1][0] + frustum[1][1] * frustum[1][1] + frustum[1][2] * frustum[1][2]);
+	frustum[1][0] /= t;
+	frustum[1][1] /= t;
+	frustum[1][2] /= t;
+	frustum[1][3] /= t;
+
+	/* Extract the BOTTOM plane */
+	frustum[2][0] = clip[3] + clip[1];
+	frustum[2][1] = clip[7] + clip[5];
+	frustum[2][2] = clip[11] + clip[9];
+	frustum[2][3] = clip[15] + clip[13];
+
+	/* Normalize the result */
+	t = sqrt(frustum[2][0] * frustum[2][0] + frustum[2][1] * frustum[2][1] + frustum[2][2] * frustum[2][2]);
+	frustum[2][0] /= t;
+	frustum[2][1] /= t;
+	frustum[2][2] /= t;
+	frustum[2][3] /= t;
+
+	/* Extract the TOP plane */
+	frustum[3][0] = clip[3] - clip[1];
+	frustum[3][1] = clip[7] - clip[5];
+	frustum[3][2] = clip[11] - clip[9];
+	frustum[3][3] = clip[15] - clip[13];
+
+	/* Normalize the result */
+	t = sqrt(frustum[3][0] * frustum[3][0] + frustum[3][1] * frustum[3][1] + frustum[3][2] * frustum[3][2]);
+	frustum[3][0] /= t;
+	frustum[3][1] /= t;
+	frustum[3][2] /= t;
+	frustum[3][3] /= t;
+
+	/* Extract the FAR plane */
+	frustum[4][0] = clip[3] - clip[2];
+	frustum[4][1] = clip[7] - clip[6];
+	frustum[4][2] = clip[11] - clip[10];
+	frustum[4][3] = clip[15] - clip[14];
+
+	/* Normalize the result */
+	t = sqrt(frustum[4][0] * frustum[4][0] + frustum[4][1] * frustum[4][1] + frustum[4][2] * frustum[4][2]);
+	frustum[4][0] /= t;
+	frustum[4][1] /= t;
+	frustum[4][2] /= t;
+	frustum[4][3] /= t;
+
+	/* Extract the NEAR plane */
+	frustum[5][0] = clip[3] + clip[2];
+	frustum[5][1] = clip[7] + clip[6];
+	frustum[5][2] = clip[11] + clip[10];
+	frustum[5][3] = clip[15] + clip[14];
+
+	/* Normalize the result */
+	t = sqrt(frustum[5][0] * frustum[5][0] + frustum[5][1] * frustum[5][1] + frustum[5][2] * frustum[5][2]);
+	frustum[5][0] /= t;
+	frustum[5][1] /= t;
+	frustum[5][2] /= t;
+	frustum[5][3] /= t;
+}
+
+char Camera::pointInFrustum(float x, float y, float z)
+{
+	int p;
+
+	for (p = 0; p < 6; p++)
+		if (frustum[p][0] * x + frustum[p][1] * y + frustum[p][2] * z + frustum[p][3] <= 0)
+			return OUTSIDE;
+	return INSIDE;
+}
+
+
+
+char Camera::sphereInFrustum(float x, float y, float z, float radius)
+{
+	int p;
+
+	for (p = 0; p < 6; p++)
+	{
+		float f = frustum[p][0] * x + frustum[p][1] * y + frustum[p][2] * z + frustum[p][3];
+		if (f < -radius)
+			return OUTSIDE;
+		if (f >= -radius && f <= +radius)
+			return OVERLAP;
+	}
+	return INSIDE;
+}
+
+char Camera::AABBInFrustrum(const Vector3 &mins, const Vector3 &maxs)
+{
+	char ret = INSIDE;
+	Vector3 vmin, vmax;
+
+	for (int i = 0; i < 6; ++i)
+	{
+		// X axis
+		if (frustum[i][0] > 0)
+		{
+			vmin.x = mins.x;
+			vmax.x = maxs.x;
+		}
+		else
+		{
+			vmin.x = maxs.x;
+			vmax.x = mins.x;
+		}
+
+		// Y axis
+		if (frustum[i][1] > 0)
+		{
+			vmin.y = mins.y;
+			vmax.y = maxs.y;
+		}
+		else
+		{
+			vmin.y = maxs.y;
+			vmax.y = mins.y;
+		}
+
+		// Z axis
+		if (frustum[i][2] > 0)
+		{
+			vmin.z = mins.z;
+			vmax.z = maxs.z;
+		}
+		else
+		{
+			vmin.z = maxs.z;
+			vmax.z = mins.z;
+		}
+
+		if (Vector3(frustum[i]).dot(vmin) > frustum[i][3])
+			return OUTSIDE;
+
+		if (Vector3(frustum[i]).dot(vmax) >= frustum[i][3])
+			ret = OVERLAP;
+	}
+
+	return ret;
+}

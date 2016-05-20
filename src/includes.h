@@ -20,12 +20,16 @@
 
 
 //SDL
+
 #pragma comment(lib, "SDL2.lib")
 #pragma comment(lib, "SDL2main.lib")
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 #include <SDL2/SDL.h>
+
+#define glActiveTexture glActiveTexture_SDL
 #include <SDL2/SDL_opengl.h>
+#undef glActiveTexture 
 
 #include <GL/glu.h>
 
@@ -44,8 +48,10 @@
 //OpenGL
 
 //used to access opengl extensions
-//void* getGLProcAddress(const char*);
 #define REGISTER_GLEXT(RET, FUNCNAME, ...) typedef RET (APIENTRY * FUNCNAME ## _func)(__VA_ARGS__); FUNCNAME ## _func FUNCNAME = NULL; 
 #define IMPORT_GLEXT(FUNCNAME) FUNCNAME = (FUNCNAME ## _func) SDL_GL_GetProcAddress(#FUNCNAME); if (FUNCNAME == NULL) { std::cout << "ERROR: This Graphics card doesnt support " << #FUNCNAME << std::endl; }
+//used for opengl extensions already defined in SDL_opengl.h to avoid collisions with names
+#define REGISTER_GLEXT_(RET, FUNCNAME, ...) typedef RET (APIENTRY * FUNCNAME ## _func)(__VA_ARGS__); FUNCNAME ## _func _ ## FUNCNAME = NULL; 
+#define IMPORT_GLEXT_(FUNCNAME) _ ## FUNCNAME = (FUNCNAME ## _func) SDL_GL_GetProcAddress(#FUNCNAME); if ( _ ## FUNCNAME == NULL) { std::cout << "ERROR: This Graphics card doesnt support " << #FUNCNAME << std::endl; }
 
 #endif

@@ -580,6 +580,7 @@ void Shader::init()
 	Shader::s_ready = true;
 	if(firsttime)
 	{
+		IMPORT_GLEXT( glActiveTexture );
 		IMPORT_GLEXT( glCreateProgramObjectARB );
 		IMPORT_GLEXT( glLinkProgramARB );
 		IMPORT_GLEXT( glGetObjectParameterivARB );
@@ -590,7 +591,6 @@ void Shader::init()
 		IMPORT_GLEXT( glAttachObjectARB );
 		IMPORT_GLEXT( glDetachObjectARB );
 		IMPORT_GLEXT( glUseProgramObjectARB );
-		IMPORT_GLEXT( glActiveTexture );
 		IMPORT_GLEXT( glGetInfoLogARB );
 		IMPORT_GLEXT( glGetUniformLocationARB );
 		IMPORT_GLEXT( glGetAttribLocationARB );

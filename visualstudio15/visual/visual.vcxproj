@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\examples\world\main.cpp" />
+    <ClCompile Include="..\..\src\application.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\box.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\box_bld.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\coldet.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\coldet_bld.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\math3d.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\mytritri.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\sysdep.cpp" />
+    <ClCompile Include="..\..\src\extra\coldet\tritri.c" />
+    <ClCompile Include="..\..\src\extra\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\src\gfx\bitmapfont.cpp" />
+    <ClCompile Include="..\..\src\gfx\camera.cpp" />
+    <ClCompile Include="..\..\src\gfx\ddsloader.cpp" />
+    <ClCompile Include="..\..\src\gfx\mesh.cpp" />
+    <ClCompile Include="..\..\src\gfx\particles.cpp" />
+    <ClCompile Include="..\..\src\gfx\rendertotexture.cpp" />
+    <ClCompile Include="..\..\src\gfx\shader.cpp" />
+    <ClCompile Include="..\..\src\gfx\texture.cpp" />
+    <ClCompile Include="..\..\src\utils\math.cpp" />
+    <ClCompile Include="..\..\src\utils\sound.cpp" />
+    <ClCompile Include="..\..\src\utils\text.cpp" />
+    <ClCompile Include="..\..\src\utils\utils.cpp" />
+    <ClCompile Include="..\..\src\world\entity.cpp" />
+    <ClCompile Include="..\..\src\world\world.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\application.h" />
+    <ClInclude Include="..\..\src\extra\coldet\box.h" />
+    <ClInclude Include="..\..\src\extra\coldet\coldet.h" />
+    <ClInclude Include="..\..\src\extra\coldet\coldetimpl.h" />
+    <ClInclude Include="..\..\src\extra\coldet\math3d.h" />
+    <ClInclude Include="..\..\src\extra\coldet\mytritri.h" />
+    <ClInclude Include="..\..\src\extra\coldet\sysdep.h" />
+    <ClInclude Include="..\..\src\extra\tinyxml\tinystr.h" />
+    <ClInclude Include="..\..\src\extra\tinyxml\tinyxml.h" />
+    <ClInclude Include="..\..\src\gfx\bitmapfont.h" />
+    <ClInclude Include="..\..\src\gfx\camera.h" />
+    <ClInclude Include="..\..\src\gfx\ddsloader.h" />
+    <ClInclude Include="..\..\src\gfx\mesh.h" />
+    <ClInclude Include="..\..\src\gfx\particles.h" />
+    <ClInclude Include="..\..\src\gfx\rendertotexture.h" />
+    <ClInclude Include="..\..\src\gfx\shader.h" />
+    <ClInclude Include="..\..\src\gfx\texture.h" />
+    <ClInclude Include="..\..\src\includes.h" />
+    <ClInclude Include="..\..\src\miniengine.h" />
+    <ClInclude Include="..\..\src\utils\math.h" />
+    <ClInclude Include="..\..\src\utils\sound.h" />
+    <ClInclude Include="..\..\src\utils\text.h" />
+    <ClInclude Include="..\..\src\utils\utils.h" />
+    <ClInclude Include="..\..\src\world\controller.h" />
+    <ClInclude Include="..\..\src\world\entity.h" />
+    <ClInclude Include="..\..\src\world\world.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9DC7275D-D453-4D7A-AF99-62C8D8DB059B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>visual</RootNamespace>
+    <ProjectName>Miniengine</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>..\libs\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>..\..</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\libs\include;$(IncludePath)</IncludePath>
+    <ReferencePath>$(ReferencePath)</ReferencePath>
+    <LibraryPath>..\libs\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\libs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

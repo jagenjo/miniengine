@@ -103,6 +103,10 @@ public:
 	bool operator == (const Vector3& v);
 	Vector3 operator * (const Vector3& v) { return Vector3(x*v.x, y*v.y, z*v.z);}
 	void operator *= (const Vector3& v) { x*=v.x; y*=v.y; z*=v.z; }
+	void operator /= (const Vector3& v) { x /= v.x; y /= v.y; z /= v.z; }
+	void operator *= (const float& v) { x *= v; y *= v; z *= v; }
+
+	float operator [] (const int& i) { return v[i]; }
 
 	void parseFromText(const char* text, const char separator = ',');
 
@@ -159,20 +163,24 @@ class Matrix44
 		bool inverse();
 		void setUpAndOrthonormalize(Vector3 up);
 		void setFrontAndOrthonormalize(Vector3 front);
-		void setOrthoProjection(float ortho_left, float ortho_right, float ortho_bottom, float ortho_top, float z_near, float z_far);
-		void setProjection(float fov, float aspect, float near_plane, float far_plane);
+
+		void lookAt(const Vector3& eye, const Vector3& center, const Vector3& up);
+		void perspective(float fov, float aspect, float near_plane, float far_plane);
+		void ortho(float left, float right, float bottom, float top, float near_plane, float far_plane);
 
 		void copyOrientationTo( Matrix44& mat ) const;
 
 		//rotate only
 		Vector3 rotateVector( const Vector3& v) const;
 
-		//translate using world coordinates
+		//translate using local coordinates
 		void translate(float x, float y, float z);
 		void rotate( float angle_in_rad, const Vector3& axis  );
-		void translateLocal(float x, float y, float z);
-		void rotateLocal( float angle_in_rad, const Vector3& axis  );
-		void scaleLocal( const Vector3& scale );
+		void scale(const Vector3& scale);
+
+		//translate using world coordinates
+		void translateGlobal(float x, float y, float z);
+		void rotateGlobal( float angle_in_rad, const Vector3& axis  );
 
 		//create a transformation matrix from scratch
 		Matrix44& setTranslation(const Vector3& v);
@@ -183,7 +191,7 @@ class Matrix44
 		void removeTranslation();
 
 		bool getXYZ(float* euler) const;
-		Vector3 getTranslation() const;
+		Vector3 getTranslation() const { return Vector3(m[12], m[13], m[14]); };
 
 		Vector3 project2D(const Vector3& position);
 		Matrix44 getRotationMatrix() const; //returns the matrix without translation
@@ -191,6 +199,73 @@ class Matrix44
 		Matrix44 operator * (const Matrix44& matrix) const;
 
 		//camera methods
+};
+
+class Quaternion
+{
+public:
+
+	union
+	{
+		struct { float x; float y; float z; float w; };
+		float q[4];
+	};
+
+public:
+	Quaternion();
+	Quaternion(const float* q);
+	Quaternion(const Quaternion& q);
+	Quaternion(const float X, const float Y, const float Z, const float W);
+	Quaternion(const Vector3& axis, float angle);
+
+	void identity();
+	Quaternion invert() const;
+	Quaternion conjugate() const;
+
+	void set(const float X, const float Y, const float Z, const float W);
+	void slerp(const Quaternion& b, float t);
+	void slerp(const Quaternion& q2, float t, Quaternion &q3) const;
+
+	void lerp(const Quaternion& b, float t);
+	void lerp(const Quaternion& q2, float t, Quaternion &q3) const;
+
+public:
+	void setAxisAngle(const Vector3& axis, const float angle);
+	void setAxisAngle(float x, float y, float z, float angle);
+	void getAxisAngle(Vector3 &v, float &angle) const;
+
+	Vector3 rotate(const Vector3& v) const;
+
+	void operator*=(const Vector3& v);
+	void operator *= (const Quaternion &q);
+	void operator += (const Quaternion &q);
+
+	friend Quaternion operator + (const Quaternion &q1, const Quaternion& q2);
+	friend Quaternion operator * (const Quaternion &q1, const Quaternion& q2);
+
+	friend Quaternion operator * (const Quaternion &q, const Vector3& v);
+
+	friend Quaternion operator * (float f, const Quaternion &q);
+	friend Quaternion operator * (const Quaternion &q, float f);
+
+	Quaternion& operator -();
+
+
+	friend bool operator==(const Quaternion& q1, const Quaternion& q2);
+	friend bool operator!=(const Quaternion& q1, const Quaternion& q2);
+
+	void operator *= (float f);
+
+	void computeMinimumRotation(const Vector3& rotateFrom, const Vector3& rotateTo);
+
+	void normalize();
+	float squaredLength() const;
+	float length() const;
+	void toMatrix(Matrix44 &) const;
+
+	void toEulerAngles(Vector3 &euler) const;
+
+	float& operator[] (unsigned int i) { return q[i]; }
 };
 
 class AABB
@@ -209,9 +284,30 @@ Vector3 operator + (const Vector3& a, const Vector3& b);
 Vector3 operator - (const Vector3& a, const Vector3& b);
 Vector3 operator * (const Vector3& a, float v);
 
+float DotProduct(const Vector3& a, const Vector3& b);
+Vector3 CrossProduct(const Vector3& a, const Vector3& b);
+
+float DotProduct(const Quaternion &q1, const Quaternion &q2);
+Quaternion Qlerp(const Quaternion &q1, const Quaternion &q2, float t);
+Quaternion Qslerp(const Quaternion &q1, const Quaternion &q2, float t);
+Quaternion Qsquad(const Quaternion &q1, const Quaternion &q2, const Quaternion &a, const Quaternion &b, float t);
+Quaternion Qsquad(const Quaternion &q1, const Quaternion &q2, const Quaternion &a, float t);
+Quaternion Qspline(const Quaternion &q1, const Quaternion &q2, const Quaternion &q3);
+Quaternion QslerpNoInvert(const Quaternion &q1, const Quaternion &q2, float t);
+Quaternion Qexp(const Quaternion &q);
+Quaternion Qlog(const Quaternion &q);
+Quaternion SimpleRotation(const Vector3 &a, const Vector3 &b);
+
+
 float ComputeSignedAngle( Vector2 a, Vector2 b);
 Vector3 RayPlaneCollision( const Vector3& plane_pos, const Vector3& plane_normal, const Vector3& ray_origin, const Vector3& ray_dir );
 Vector3 normalize( Vector3 n );
 int raySphereTest(Vector3 start, Vector3 dir, const Vector3& sphereCenter, float r, float& t0, float& t1);
+
+
+typedef Vector3 vec2;
+typedef Vector3 vec3;
+typedef Matrix44 mat4;
+typedef Quaternion quat;
 
 #endif

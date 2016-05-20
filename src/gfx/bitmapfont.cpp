@@ -90,8 +90,8 @@ Vector2 BitmapFont::renderText(const std::string& text, Vector2 start_pos, int w
 	//fill buffers
 	Vector3 pos = Vector3( start_pos.x, start_pos.y , 0.0 );
 	int chars_rendered = 0;
-	float i_w = 1.0 / (float)scale_width;
-	float i_h = 1.0 / (float)scale_height;
+	float i_w = 1.0f / (float)scale_width;
+	float i_h = 1.0f / (float)scale_height;
 	int max_x = 0;
 	character* last_character = NULL;
 	
@@ -184,7 +184,7 @@ Vector2 BitmapFont::renderText(const std::string& text, Vector2 start_pos, int w
 	sh->setTexture("texture",texture->texture_id);
 
 	Matrix44 mvp;
-	mvp.setOrthoProjection(0,window_width,window_height,0,-1,1);
+	mvp.ortho(0.0f,window_width,window_height,0.0f,-1.0f,1.0f);
 	sh->setMatrix44("mvp",mvp.m);
 
 	Mesh mesh;
@@ -197,7 +197,7 @@ Vector2 BitmapFont::renderText(const std::string& text, Vector2 start_pos, int w
 
 	mesh.render(0,true);
 
-	pos.x = max_x;
+	pos.x = (float)max_x;
 	sh->disable();
 	return Vector2( max_x, pos.y );
 }

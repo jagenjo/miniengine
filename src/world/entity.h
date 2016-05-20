@@ -117,8 +117,8 @@ public:
 	virtual void setEntityColor(Vector3 color);
 
 	//transforms
-	Vector3 getLocalPosition() { return model.getTranslation(); }
-	Vector3 getWorldPosition() { return modelworld.getTranslation(); }
+	inline Vector3 getLocalPosition() { return model.getTranslation(); }
+	inline Vector3 getWorldPosition() { return modelworld.getTranslation(); }
 	virtual Matrix44 getModelWorld();
 	Vector3 getWorldCoordinates( Vector3 v );
 	Vector3 getVelocityWorld();

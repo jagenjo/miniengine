@@ -94,7 +94,7 @@ public:
 	virtual ~ParticleEmissor();
 
 	void init();
-	void setupEmissor(char type);
+
 	void createParticle();
 	void start();
 	void stop();

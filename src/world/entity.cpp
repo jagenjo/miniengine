@@ -215,7 +215,7 @@ void Entity::render()
 
 void Entity::renderBounding()
 {
-	glColor3f(1,0.2,0.2);
+	glColor3f(1.0f,0.2f,0.2f);
 	glPushMatrix();
 		glTranslatef(oobb.center.x, oobb.center.y, oobb.center.z);
 		glScalef(oobb.halfsize.x, oobb.halfsize.y, oobb.halfsize.z);
@@ -225,7 +225,7 @@ void Entity::renderBounding()
 	glPopMatrix();
 
 	Texture::unbind();
-	glColor3f(1,1,1);
+	glColor3f(1.0f,1.0f,1.0f);
 	//glutWireSphere(radius,20,20);
 	glPushMatrix();
 		glLoadMatrixf(World::instance->current_camera->view_matrix.m);
@@ -295,8 +295,8 @@ Vector3 Entity::getVelocityWorld()
 void Entity::setPositionAndYaw(Vector3 pos, float yaw_in_deg)
 {
 	model.setIdentity();
-	model.rotateLocal(yaw_in_deg * DEG2RAD, Vector3(0.0f,1.0f,0.0f) );
-	model.translate(pos.x, pos.y, pos.z);
+	model.rotate( (float)(yaw_in_deg * DEG2RAD), Vector3(0.0f,1.0f,0.0f) );
+	model.translateGlobal(pos.x, pos.y, pos.z);
 }
 
 void Entity::update(float seconds)
@@ -324,7 +324,7 @@ void Entity::update(float seconds)
 
 std::string Entity::toString() 
 { 
-	Vector3 pos = getWorldCoordinates(Vector3(0,0,0) );
+	Vector3 pos = getWorldCoordinates( Vector3() );
 	char temp[1024];
 	sprintf (temp,"Name: %s:%s\nWPos: %f,%f,%f\n", name.c_str(), getClassName(), pos.x, pos.y,pos.z);
 	return temp;
@@ -399,7 +399,7 @@ void Entity::updateCulling(Camera* camera)
 		else
 			visibility = 1.0;
 
-			inside_frustum = camera->clipper.SphereInFrustum( modelworld.getTranslation().x, modelworld.getTranslation().y, modelworld.getTranslation().z, aabb.halfsize.length() ) != Clipper::OUTSIDE;
+			inside_frustum = camera->sphereInFrustum( modelworld.getTranslation().x, modelworld.getTranslation().y, modelworld.getTranslation().z, (float)aabb.halfsize.length() ) != Camera::OUTSIDE;
 	}
 
 	//		inside_frustum = World::instance->current_camera->clipper.SphereInFrustum( aabb.center.x, aabb.center.y, aabb.center.z, aabb.halfsize.length() ) != Clipper::OUTSIDE;
@@ -412,7 +412,7 @@ void Entity::updateCulling(Camera* camera)
 
 void Entity::computeProjection(Camera* camera, bool recursive)
 {
-	screen_pos = camera->project2D( this->getWorldCoordinates(Vector3(0,0,0) ), Camera::window_width, Camera::window_height );
+	screen_pos = camera->project2D( this->getWorldCoordinates(Vector3() ), (float)Camera::window_width, (float)Camera::window_height );
 	if (radius)
 	{
 		distance_to_camera = camera->eye.distance( modelworld.getTranslation() );
@@ -430,46 +430,46 @@ void Entity::computeProjection(Camera* camera, bool recursive)
 
 void Entity::updateCamera(char cam_mode, Vector3 controller, Camera* camera, float elapsed_time, bool smooth)
 {
-	float factor = 1.0;
+	float factor = 1.0f;
 	Vector3 neweye;
 	Vector3 newcenter;
 	Vector3 newup;
 
-	if (controller.z != 0) camera->fov *= 0.5;
+	if (controller.z != 0.0f) camera->fov *= 0.5f;
 
 	if (cam_mode == CAM_GLOBAL)
 	{
-		Vector3 v(0,factor*radius*0.6,factor*radius*0.8);
+		Vector3 v(0.0f,factor*radius*0.6f,factor*radius*0.8f);
 		Matrix44 R;
-		R.setRotation(controller.x * M_PI, Vector3(0,1,0));
+		R.setRotation( float(controller.x * M_PI), Vector3(0.0f,1.0f,0.0f));
 		v = R * v;
-		R.setRotation(controller.y * M_PI * 0.5, Vector3(1,0,0));
+		R.setRotation( float(controller.y * M_PI) * 0.5f, Vector3(1.0f,0.0f,0.0f));
 		v = R * v;
 		neweye = modelworld * v;
-		newcenter = modelworld * Vector3(0,factor*radius*0.5,0);
+		newcenter = modelworld * Vector3(0.0f,factor*radius*0.5f,0.0f);
 		newup = modelworld.topVector();
 	}
 	else if (cam_mode == CAM_FRONT)
 	{
-		Vector3 v(0,0,-factor*radius);
+		Vector3 v(0.0f,0.0f,-factor*radius);
 		neweye = modelworld * v ;
-		newcenter = modelworld * (v*2);
+		newcenter = modelworld * (v*2.0f);
 		newup = modelworld.topVector();
 	}
 	else if (cam_mode == CAM_BACK)
 	{
-		neweye = modelworld * Vector3(0,radius * 0.5,-factor*radius);
-		newcenter = modelworld * Vector3(0,radius*0.5,factor*radius);
+		neweye = modelworld * Vector3(0.0f,radius * 0.5f,-factor*radius);
+		newcenter = modelworld * Vector3(0.0f,radius*0.5f,factor*radius);
 		newup = modelworld.topVector();
 	}
 
-	float t = 0.2;
+	float t = 0.2f;
 	if (smooth)
 	{
 		Vector3 v = (neweye - camera->eye);
-		float d = v.length();
+		float d = (float)v.length();
 
-		camera->eye = camera->eye + v * elapsed_time * 10.0;
+		camera->eye = camera->eye + v * elapsed_time * 10.0f;
 		camera->center = newcenter;
 		camera->up = newup;
 	}

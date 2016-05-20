@@ -15,7 +15,7 @@
 #include "ddsloader.h"
 #include "../utils/utils.h"
 
-REGISTER_GLEXT( void, glCompressedTexImage2D, GLenum target,  GLint level,  GLenum internalformat,  GLsizei width,  GLsizei height,  GLint border,  GLsizei imageSize,  const GLvoid * data )
+REGISTER_GLEXT_( void, glCompressedTexImage2D, GLenum target,  GLint level,  GLenum internalformat,  GLsizei width,  GLsizei height,  GLint border,  GLsizei imageSize,  const GLvoid * data )
 
 struct DdsLoadInfo {
   bool compressed;
@@ -62,7 +62,6 @@ bool Texture::loadDDS( const char* filename )
 	if(!s_dds_extensions_ready)
 	{
 		s_dds_extensions_ready = true;
-		IMPORT_GLEXT( glCompressedTexImage2D );
 	}
 
 
@@ -158,7 +157,7 @@ bool Texture::loadDDS( const char* filename )
     format = cFormat = li->internalFormat;
     for( unsigned int ix = 0; ix < mipMapCount; ++ix ) {
       fread( data, 1, size, f );
-      glCompressedTexImage2D( GL_TEXTURE_2D, ix, li->internalFormat, x, y, 0, size, data );
+      _glCompressedTexImage2D( GL_TEXTURE_2D, ix, li->internalFormat, x, y, 0, size, data );
       checkGLErrors();
       x = (x+1)>>1;
       y = (y+1)>>1;

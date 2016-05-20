@@ -3,10 +3,8 @@
 
 #include "../utils/math.h"
 #include "../includes.h"
-#include "../extra/clipper.h"
 
 enum { CAM_GLOBAL, CAM_BACK, CAM_SIDE, CAM_FRONT, CAM_TOP, CAM_INSIDE, CAM_ALL };
-
 
 class Camera
 {
@@ -38,7 +36,15 @@ public:
 	Matrix44 projection_matrix;
 	Matrix44 view_projection_matrix;
 
-	Clipper clipper; //frustrum culling
+	//frustrum culling
+	enum { OUTSIDE, OVERLAP, INSIDE };
+
+	float frustum[6][4];
+
+	void extractFrustum();
+	char pointInFrustum(float x, float y, float z);
+	char sphereInFrustum(float x, float y, float z, float radius);
+	char AABBInFrustrum(const Vector3 &mins, const Vector3 &maxs);
 
 	Camera();
 	void set();

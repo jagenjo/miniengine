@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="gfx">
+      <UniqueIdentifier>{1735c715-5c02-4c1d-8bdb-079ea62c536c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{5611770c-fd78-409d-b7c1-e9577bda0fb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="world">
+      <UniqueIdentifier>{7d6cde5c-5cb7-49d9-8c55-c1f1b04034a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="extra">
+      <UniqueIdentifier>{3ea13ec5-2a20-4581-9a1c-58b27a12f7c1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\gfx\bitmapfont.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\camera.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\ddsloader.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\mesh.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\particles.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\rendertotexture.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\shader.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\gfx\texture.cpp">
+      <Filter>gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\math.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\sound.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\text.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\utils\utils.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\world\entity.cpp">
+      <Filter>world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\world\world.cpp">
+      <Filter>world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\box.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\box_bld.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\coldet.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\coldet_bld.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\math3d.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\mytritri.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\sysdep.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\coldet\tritri.c">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinystr.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxml.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxmlerror.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\extra\tinyxml\tinyxmlparser.cpp">
+      <Filter>extra</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\examples\world\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\gfx\bitmapfont.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\camera.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\ddsloader.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\mesh.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\particles.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\rendertotexture.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\shader.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\gfx\texture.h">
+      <Filter>gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\math.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\sound.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\text.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\utils\utils.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\world\controller.h">
+      <Filter>world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\world\entity.h">
+      <Filter>world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\world\world.h">
+      <Filter>world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\box.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\coldet.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\coldetimpl.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\math3d.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\mytritri.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\coldet\sysdep.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\tinyxml\tinystr.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\extra\tinyxml\tinyxml.h">
+      <Filter>extra</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
