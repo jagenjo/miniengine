@@ -11,9 +11,6 @@
 #include "../gfx/particles.h"
 #include "../gfx/shader.h"
 
-// #include "worlditems.h"  // does not exist and is not needed
-
-
 World* World::instance = NULL;
 
 World::World()
