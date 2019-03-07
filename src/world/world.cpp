@@ -11,9 +11,6 @@
 #include "../gfx/particles.h"
 #include "../gfx/shader.h"
 
-#include "worlditems.h"
-
-
 World* World::instance = NULL;
 
 World::World()
